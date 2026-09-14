@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import { client } from "@/sanity/lib/client";
 import { programsQuery } from "@/sanity/lib/queries";
 
+export const revalidate = 60;
+
 export default async function Home() {
   const programs = await client.fetch<
     {
