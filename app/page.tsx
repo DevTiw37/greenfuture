@@ -13,6 +13,9 @@ export default async function Home() {
       title: string;
       description: string;
       icon?: string;
+      slug?: {
+        current: string;
+      };
     }[]
   >(programsQuery);
   return (
@@ -178,7 +181,6 @@ export default async function Home() {
                 change.
               </p>
             </div>
-
             {/* Program Cards */}
             <div className="mt-14 grid gap-8 md:grid-cols-3">
               {programs.map((program) => (
@@ -187,10 +189,11 @@ export default async function Home() {
                   icon={program.icon || "🌱"}
                   title={program.title}
                   description={program.description}
+                  slug={program.slug?.current}
                 />
               ))}
             </div>
-
+            const programs
             {/* Programs CTA */}
             <div className="mt-12">
               <Link

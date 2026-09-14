@@ -55,6 +55,7 @@ export default async function ServicesPage() {
                   icon={program.icon || "🌱"}
                   title={program.title}
                   description={program.description}
+                  slug={program.slug?.current}
                 />
               ))}
             </div>
