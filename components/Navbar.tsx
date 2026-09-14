@@ -96,7 +96,11 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="border-t border-gray-100 pt-4 md:hidden">
+          <nav
+            id="mobile-navigation"
+            aria-label="Mobile navigation"
+            className="border-t border-gray-100 pt-4 md:hidden"
+          >
             <div className="flex flex-col gap-1">
               <Link
                 href="/"
@@ -146,7 +150,7 @@ export default function Navbar() {
                 Get Involved
               </Link>
             </div>
-          </div>
+          </nav>
         )}
       </nav>
     </header>
