@@ -17,6 +17,22 @@ export async function POST(request: Request) {
       );
     }
 
+    if (name.length > 100 || email.length > 254 || message.length > 2000) {
+      return NextResponse.json(
+        { error: "Input is too long." },
+        { status: 400 },
+      );
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "Please enter a valid email address." },
+        { status: 400 },
+      );
+    }
+
     const { error } = await supabase.from("contact_messages").insert({
       name,
       email,

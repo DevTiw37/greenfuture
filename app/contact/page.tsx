@@ -9,6 +9,7 @@ export default function ContactPage() {
     name: "",
     email: "",
     message: "",
+    website: "",
   });
 
   const handleChange = (
@@ -22,6 +23,9 @@ export default function ContactPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (form.website) {
+      return;
+    }
 
     try {
       const response = await fetch("/api/contact", {
@@ -45,6 +49,7 @@ export default function ContactPage() {
         name: "",
         email: "",
         message: "",
+        website: "",
       });
     } catch (error) {
       console.error("Contact form error:", error);
