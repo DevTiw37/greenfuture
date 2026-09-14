@@ -2,10 +2,51 @@ import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { Resend } from "resend";
 
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS = 5;
+
+const ipCache = new Map<string, { count: number; timer: NodeJS.Timeout }>();
+
+function isRateLimited(ip: string): boolean {
+  const record = ipCache.get(ip);
+
+  if (!record) {
+    const timer = setTimeout(() => {
+      ipCache.delete(ip);
+    }, RATE_LIMIT_WINDOW);
+
+    ipCache.set(ip, {
+      count: 1,
+      timer,
+    });
+
+    return false;
+  }
+
+  if (record.count >= MAX_REQUESTS) {
+    return true;
+  }
+
+  record.count += 1;
+  return false;
+}
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 },
+      );
+    }
+
     const body = await request.json();
 
     const { name, email, message, website } = body;
