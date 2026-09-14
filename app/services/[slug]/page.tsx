@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 
+export const revalidate = 60;
+
 type Program = {
   title: string;
   description: string;
