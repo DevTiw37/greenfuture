@@ -33,6 +33,20 @@ type PageProps = {
   }>;
 };
 
+export async function generateStaticParams() {
+  const programs = await client.fetch<{ slug: { current: string } }[]>(
+    groq`
+      *[_type == "program" && defined(slug.current)] {
+        slug
+      }
+    `
+  );
+
+  return programs.map((program) => ({
+    slug: program.slug.current,
+  }));
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
