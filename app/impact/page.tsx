@@ -5,6 +5,8 @@ import ImpactStat from "@/components/ImpactStat";
 import { client } from "@/sanity/lib/client";
 import { impactStatsQuery } from "@/sanity/lib/queries";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Our Impact",
   description:
