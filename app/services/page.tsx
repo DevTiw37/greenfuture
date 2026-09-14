@@ -1,8 +1,29 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProgramCard from "@/components/ProgramCard";
+import { client } from "@/sanity/lib/client";
+import { programsQuery } from "@/sanity/lib/queries";
 
-export default function ServicesPage() {
+export const metadata: Metadata = {
+  title: "Programs",
+  description:
+    "Explore GreenFuture programs for community tree planting, sustainability education, and community-led environmental projects.",
+};
+
+type Program = {
+  _id: string;
+  title: string;
+  description: string;
+  icon?: string;
+  slug?: {
+    current: string;
+  };
+};
+
+export default async function ServicesPage() {
+  const programs = await client.fetch<Program[]>(programsQuery);
+
   return (
     <>
       <Navbar />
@@ -28,25 +49,14 @@ export default function ServicesPage() {
         <section className="bg-gray-50 py-24">
           <div className="mx-auto max-w-7xl px-6">
             <div className="grid gap-8 md:grid-cols-3">
-
-              <ProgramCard
-                icon="🌳"
-                title="Community Tree Planting"
-                description="Bring neighbors together to restore green spaces, plant trees, and create healthier local environments."
-              />
-
-              <ProgramCard
-                icon="🎓"
-                title="School Sustainability Workshops"
-                description="Interactive workshops that help students understand sustainability and turn knowledge into action."
-              />
-
-              <ProgramCard
-                icon="💚"
-                title="Community Micro-Grants"
-                description="Small grants that help communities turn environmental ideas into practical local projects."
-              />
-
+              {programs.map((program) => (
+                <ProgramCard
+                  key={program._id}
+                  icon={program.icon || "🌱"}
+                  title={program.title}
+                  description={program.description}
+                />
+              ))}
             </div>
           </div>
         </section>

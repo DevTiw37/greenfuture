@@ -3,8 +3,18 @@ import Navbar from "@/components/Navbar";
 import ProgramCard from "@/components/ProgramCard";
 import ImpactStat from "@/components/ImpactStat";
 import Footer from "@/components/Footer";
+import { client } from "@/sanity/lib/client";
+import { programsQuery } from "@/sanity/lib/queries";
 
-export default function Home() {
+export default async function Home() {
+  const programs = await client.fetch<
+    {
+      _id: string;
+      title: string;
+      description: string;
+      icon?: string;
+    }[]
+  >(programsQuery);
   return (
     <>
       <Navbar />
@@ -12,7 +22,6 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section className="relative min-h-[calc(100vh-73px)] overflow-hidden bg-green-950">
-          
           {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -28,7 +37,6 @@ export default function Home() {
           {/* Hero Content */}
           <div className="relative mx-auto flex min-h-[calc(100vh-73px)] max-w-7xl items-center px-6 py-20">
             <div className="max-w-3xl text-white">
-
               {/* Small Label */}
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.25em] text-green-300">
                 Building a greener future
@@ -68,10 +76,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-                {/* Mission Section */}
+        {/* Mission Section */}
         <section className="bg-white py-24">
           <div className="mx-auto max-w-7xl px-6">
-            
             {/* Section Heading */}
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-700">
@@ -91,7 +98,6 @@ export default function Home() {
 
             {/* Focus Areas */}
             <div className="mt-16 grid gap-8 md:grid-cols-3">
-              
               {/* Card 1 */}
               <div className="rounded-2xl border border-green-100 bg-green-50 p-8">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-700 text-2xl">
@@ -103,8 +109,8 @@ export default function Home() {
                 </h3>
 
                 <p className="mt-3 leading-7 text-gray-600">
-                  We organize local initiatives that empower communities to
-                  take meaningful environmental action.
+                  We organize local initiatives that empower communities to take
+                  meaningful environmental action.
                 </p>
               </div>
 
@@ -119,8 +125,8 @@ export default function Home() {
                 </h3>
 
                 <p className="mt-3 leading-7 text-gray-600">
-                  We help students and communities understand sustainability
-                  and turn knowledge into action.
+                  We help students and communities understand sustainability and
+                  turn knowledge into action.
                 </p>
               </div>
 
@@ -135,8 +141,8 @@ export default function Home() {
                 </h3>
 
                 <p className="mt-3 leading-7 text-gray-600">
-                  We support initiatives designed to create lasting benefits
-                  for people, communities, and the planet.
+                  We support initiatives designed to create lasting benefits for
+                  people, communities, and the planet.
                 </p>
               </div>
             </div>
@@ -153,10 +159,9 @@ export default function Home() {
           </div>
         </section>
 
-                {/* Programs Section */}
+        {/* Programs Section */}
         <section className="bg-gray-50 py-24">
           <div className="mx-auto max-w-7xl px-6">
-
             {/* Section Heading */}
             <div className="max-w-3xl">
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-700">
@@ -176,25 +181,14 @@ export default function Home() {
 
             {/* Program Cards */}
             <div className="mt-14 grid gap-8 md:grid-cols-3">
-
-              <ProgramCard
-                icon="🌳"
-                title="Community Tree Planting"
-                description="Bring neighbors together to restore green spaces, plant trees, and create healthier local environments."
-              />
-
-              <ProgramCard
-                icon="🎓"
-                title="School Sustainability Workshops"
-                description="Interactive workshops that help students understand sustainability and discover how everyday actions can make a difference."
-              />
-
-              <ProgramCard
-                icon="💚"
-                title="Community Micro-Grants"
-                description="Small grants that help local communities turn their environmental ideas into practical projects with measurable impact."
-              />
-
+              {programs.map((program) => (
+                <ProgramCard
+                  key={program._id}
+                  icon={program.icon || "🌱"}
+                  title={program.title}
+                  description={program.description}
+                />
+              ))}
             </div>
 
             {/* Programs CTA */}
@@ -206,14 +200,12 @@ export default function Home() {
                 Explore All Programs →
               </Link>
             </div>
-
           </div>
         </section>
 
-                {/* Impact Section */}
+        {/* Impact Section */}
         <section className="bg-green-950 py-24 text-white">
           <div className="mx-auto max-w-7xl px-6">
-
             {/* Heading */}
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-300">
@@ -232,36 +224,20 @@ export default function Home() {
 
             {/* Statistics */}
             <div className="mt-16 grid grid-cols-2 gap-y-12 md:grid-cols-4">
+              <ImpactStat value="10K+" label="Trees Planted" />
 
-              <ImpactStat
-                value="10K+"
-                label="Trees Planted"
-              />
+              <ImpactStat value="5K+" label="Volunteers" />
 
-              <ImpactStat
-                value="5K+"
-                label="Volunteers"
-              />
+              <ImpactStat value="120+" label="Community Projects" />
 
-              <ImpactStat
-                value="120+"
-                label="Community Projects"
-              />
-
-              <ImpactStat
-                value="50+"
-                label="Schools Reached"
-              />
-
+              <ImpactStat value="50+" label="Schools Reached" />
             </div>
-
           </div>
         </section>
 
-                {/* Call To Action */}
+        {/* Call To Action */}
         <section className="bg-green-50 py-24">
           <div className="mx-auto max-w-4xl px-6 text-center">
-
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-700">
               Be Part of the Change
             </p>
@@ -271,8 +247,8 @@ export default function Home() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-              Whether you volunteer your time, support a local project, or
-              share our mission with others, every action helps build a more
+              Whether you volunteer your time, support a local project, or share
+              our mission with others, every action helps build a more
               sustainable world.
             </p>
 
@@ -291,11 +267,8 @@ export default function Home() {
                 Learn About Us
               </Link>
             </div>
-
           </div>
         </section>
-
-        
       </main>
       <Footer />
     </>

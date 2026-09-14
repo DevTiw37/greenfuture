@@ -1,39 +1,36 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
   return (
     <footer className="bg-gray-950 text-gray-300">
       <div className="mx-auto max-w-7xl px-6 py-16">
-
         <div className="grid gap-12 md:grid-cols-4">
-
           {/* Brand */}
           <div className="md:col-span-2">
-            <Link
-              href="/"
-              className="text-2xl font-bold text-white"
-            >
-              GreenFuture
+            <Link href="/" className="inline-flex items-center">
+              <Image
+                src="/icon.png"
+                alt="GreenFuture"
+                width={56}
+                height={56}
+                className="rounded-full object-cover"
+              />
             </Link>
 
             <p className="mt-4 max-w-md leading-7 text-gray-400">
-              Empowering communities to create positive environmental and
-              social change for a healthier and more sustainable future.
+              Empowering communities to create positive environmental and social
+              change for a healthier and more sustainable future.
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h3 className="font-semibold text-white">
-              Explore
-            </h3>
+            <h3 className="font-semibold text-white">Explore</h3>
 
             <ul className="mt-5 space-y-3 text-sm">
               <li>
-                <Link
-                  href="/about"
-                  className="transition hover:text-green-400"
-                >
+                <Link href="/about" className="transition hover:text-green-400">
                   About
                 </Link>
               </li>
@@ -69,13 +66,11 @@ export default function Footer() {
 
           {/* Get Involved */}
           <div>
-            <h3 className="font-semibold text-white">
-              Get Involved
-            </h3>
+            <h3 className="font-semibold text-white">Get Involved</h3>
 
             <p className="mt-5 text-sm leading-6 text-gray-400">
-              Want to help create a greener future? Join our community and
-              make a difference.
+              Want to help create a greener future? Join our community and make
+              a difference.
             </p>
 
             <Link
@@ -85,7 +80,6 @@ export default function Footer() {
               Become a Volunteer →
             </Link>
           </div>
-
         </div>
 
         {/* Bottom */}
@@ -94,7 +88,6 @@ export default function Footer() {
             © {new Date().getFullYear()} GreenFuture. All rights reserved.
           </p>
         </div>
-
       </div>
     </footer>
   );

@@ -12,7 +12,7 @@ export default function ContactPage() {
   });
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm({
       ...form,
@@ -20,18 +20,36 @@ export default function ContactPage() {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log(form);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    alert("Thank you! Your message has been received.");
+      const data = await response.json();
 
-    setForm({
-      name: "",
-      email: "",
-      message: "",
-    });
+      if (!response.ok) {
+        alert(data.error || "Failed to send message.");
+        return;
+      }
+
+      alert("Thank you! Your message has been received.");
+
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -60,7 +78,6 @@ export default function ContactPage() {
         {/* Contact Section */}
         <section className="bg-gray-50 py-24">
           <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2">
-
             {/* Information */}
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-700">
@@ -73,26 +90,19 @@ export default function ContactPage() {
 
               <p className="mt-6 max-w-lg text-lg leading-8 text-gray-600">
                 Whether you want to volunteer, partner with us, or learn more
-                about our programs, send us a message and our team will get
-                back to you.
+                about our programs, send us a message and our team will get back
+                to you.
               </p>
 
               <div className="mt-10 space-y-6">
-
                 <div>
-                  <h3 className="font-semibold text-green-950">
-                    Email
-                  </h3>
+                  <h3 className="font-semibold text-green-950">Email</h3>
 
-                  <p className="mt-1 text-gray-600">
-                    hello@greenfuture.org
-                  </p>
+                  <p className="mt-1 text-gray-600">hello@greenfuture.org</p>
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-green-950">
-                    Location
-                  </h3>
+                  <h3 className="font-semibold text-green-950">Location</h3>
 
                   <p className="mt-1 text-gray-600">
                     Working with communities everywhere
@@ -100,22 +110,18 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-green-950">
-                    Volunteer
-                  </h3>
+                  <h3 className="font-semibold text-green-950">Volunteer</h3>
 
                   <p className="mt-1 text-gray-600">
                     Tell us how you would like to contribute.
                   </p>
                 </div>
-
               </div>
             </div>
 
             {/* Form */}
             <div className="rounded-2xl bg-white p-8 shadow-sm sm:p-10">
               <form onSubmit={handleSubmit} className="space-y-6">
-
                 {/* Name */}
                 <div>
                   <label
@@ -186,10 +192,8 @@ export default function ContactPage() {
                 >
                   Send Message
                 </button>
-
               </form>
             </div>
-
           </div>
         </section>
       </main>

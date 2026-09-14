@@ -1,8 +1,25 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ImpactStat from "@/components/ImpactStat";
+import { client } from "@/sanity/lib/client";
+import { impactStatsQuery } from "@/sanity/lib/queries";
 
-export default function ImpactPage() {
+export const metadata: Metadata = {
+  title: "Our Impact",
+  description:
+    "Discover the environmental and community impact created through GreenFuture's programs and initiatives.",
+};
+
+type ImpactStat = {
+  _id: string;
+  value: string;
+  label: string;
+  order: number;
+};
+
+export default async function ImpactPage() {
+  const impactStats = await client.fetch<ImpactStat[]>(impactStatsQuery);
   return (
     <>
       <Navbar />
@@ -20,8 +37,8 @@ export default function ImpactPage() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-green-100/80">
-              Our work is driven by measurable community action and a
-              commitment to creating meaningful environmental impact.
+              Our work is driven by measurable community action and a commitment
+              to creating meaningful environmental impact.
             </p>
           </div>
         </section>
@@ -30,27 +47,13 @@ export default function ImpactPage() {
         <section className="bg-white py-24">
           <div className="mx-auto max-w-7xl px-6">
             <div className="grid grid-cols-2 gap-y-14 md:grid-cols-4">
-
-              <ImpactStat
-                value="10K+"
-                label="Trees Planted"
-              />
-
-              <ImpactStat
-                value="5K+"
-                label="Volunteers"
-              />
-
-              <ImpactStat
-                value="120+"
-                label="Community Projects"
-              />
-
-              <ImpactStat
-                value="50+"
-                label="Schools Reached"
-              />
-
+              {impactStats.map((stat) => (
+                <ImpactStat
+                  key={stat._id}
+                  value={stat.value}
+                  label={stat.label}
+                />
+              ))}
             </div>
           </div>
         </section>

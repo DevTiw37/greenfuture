@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -13,17 +14,17 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-green-900/10 bg-white/95 backdrop-blur">
       <nav className="mx-auto max-w-7xl px-6 py-4">
-        
         {/* Top Navigation */}
         <div className="flex items-center justify-between">
-
           {/* Logo */}
-          <Link
-            href="/"
-            onClick={closeMenu}
-            className="text-2xl font-bold tracking-tight text-green-800"
-          >
-            GreenFuture
+          <Link href="/" onClick={closeMenu} className="flex items-center">
+            <Image
+              src="/icon.png"
+              alt="GreenFuture"
+              width={48}
+              height={48}
+              className="rounded-full object-cover"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -86,14 +87,12 @@ export default function Navbar() {
               <span className="text-2xl">☰</span>
             )}
           </button>
-
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="border-t border-gray-100 pt-4 md:hidden">
             <div className="flex flex-col gap-1">
-
               <Link
                 href="/"
                 onClick={closeMenu}
@@ -141,11 +140,9 @@ export default function Navbar() {
               >
                 Get Involved
               </Link>
-
             </div>
           </div>
         )}
-
       </nav>
     </header>
   );

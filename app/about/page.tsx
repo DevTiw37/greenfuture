@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Learn how GreenFuture brings people and communities together to create a healthier and more sustainable future.",
+};
 
 export default function AboutPage() {
   return (
