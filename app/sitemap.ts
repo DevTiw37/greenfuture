@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://greenfuture-mu.vercel.app";
+  const baseUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://greenfuture-mu.vercel.app";
 
   return [
     {
