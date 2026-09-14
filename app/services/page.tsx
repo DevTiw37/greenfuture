@@ -5,6 +5,8 @@ import ProgramCard from "@/components/ProgramCard";
 import { client } from "@/sanity/lib/client";
 import { programsQuery } from "@/sanity/lib/queries";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Programs",
   description:
