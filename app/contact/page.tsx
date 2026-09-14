@@ -12,6 +12,8 @@ export default function ContactPage() {
     website: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -28,6 +30,7 @@ export default function ContactPage() {
     }
 
     try {
+      setIsSubmitting(true);
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -54,6 +57,8 @@ export default function ContactPage() {
     } catch (error) {
       console.error("Contact form error:", error);
       alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -61,7 +66,7 @@ export default function ContactPage() {
     <>
       <Navbar />
 
-      <main>
+      <main id="main-content">
         {/* Page Header */}
         <section className="bg-green-950 py-24 text-white">
           <div className="mx-auto max-w-7xl px-6">
@@ -190,12 +195,26 @@ export default function ContactPage() {
                   />
                 </div>
 
+                <div className="absolute left-[-9999px]" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={form.website}
+                    onChange={handleChange}
+                  />
+                </div>
+
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-green-700 px-6 py-3.5 font-semibold text-white transition hover:bg-green-800"
+                  disabled={isSubmitting}
+                  className="rounded-full bg-green-700 px-6 py-3 font-semibold text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>

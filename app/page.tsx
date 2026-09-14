@@ -22,7 +22,7 @@ export default async function Home() {
     <>
       <Navbar />
 
-      <main>
+      <main id="main-content">
         {/* Hero Section */}
         <section className="relative min-h-[calc(100vh-73px)] overflow-hidden bg-green-950">
           {/* Background Image */}

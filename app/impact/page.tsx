@@ -24,7 +24,7 @@ export default async function ImpactPage() {
     <>
       <Navbar />
 
-      <main>
+      <main  id="main-content">
         {/* Page Header */}
         <section className="bg-green-950 py-24 text-white">
           <div className="mx-auto max-w-7xl px-6">

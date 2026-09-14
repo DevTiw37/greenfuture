@@ -17,7 +17,11 @@ export default function Navbar() {
         {/* Top Navigation */}
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" onClick={closeMenu} className="flex items-center">
+          <Link
+            href="/"
+            onClick={closeMenu}
+            className="flex items-center rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
+          >
             <Image
               src="/icon.png"
               alt="GreenFuture"
@@ -31,35 +35,35 @@ export default function Navbar() {
           <div className="hidden items-center gap-8 md:flex">
             <Link
               href="/"
-              className="text-sm font-medium text-gray-700 transition hover:text-green-700"
+              className="text-sm font-medium text-gray-700 transition hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
             >
               Home
             </Link>
 
             <Link
               href="/about"
-              className="text-sm font-medium text-gray-700 transition hover:text-green-700"
+              className="text-sm font-medium text-gray-700 transition hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
             >
               About
             </Link>
 
             <Link
               href="/services"
-              className="text-sm font-medium text-gray-700 transition hover:text-green-700"
+              className="text-sm font-medium text-gray-700 transition hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
             >
               Programs
             </Link>
 
             <Link
               href="/impact"
-              className="text-sm font-medium text-gray-700 transition hover:text-green-700"
+              className="text-sm font-medium text-gray-700 transition hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
             >
               Impact
             </Link>
 
             <Link
               href="/contact"
-              className="text-sm font-medium text-gray-700 transition hover:text-green-700"
+              className="text-sm font-medium text-gray-700 transition hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
             >
               Contact
             </Link>
@@ -68,7 +72,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <Link
             href="/contact"
-            className="hidden rounded-full bg-green-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-green-800 md:block"
+            className="hidden text-sm font-medium text-gray-700 transition hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 md:block"
           >
             Get Involved
           </Link>
@@ -77,9 +81,10 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="rounded-lg p-2 text-gray-700 transition hover:bg-green-50 md:hidden"
+            className="rounded-lg p-2 text-gray-700 transition hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 md:hidden"
             aria-label="Toggle navigation menu"
             aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             {isOpen ? (
               <span className="text-2xl">✕</span>
@@ -96,7 +101,7 @@ export default function Navbar() {
               <Link
                 href="/"
                 onClick={closeMenu}
-                className="rounded-lg px-4 py-3 font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
               >
                 Home
               </Link>
@@ -104,7 +109,7 @@ export default function Navbar() {
               <Link
                 href="/about"
                 onClick={closeMenu}
-                className="rounded-lg px-4 py-3 font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
               >
                 About
               </Link>
@@ -112,7 +117,7 @@ export default function Navbar() {
               <Link
                 href="/services"
                 onClick={closeMenu}
-                className="rounded-lg px-4 py-3 font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
               >
                 Programs
               </Link>
@@ -120,7 +125,7 @@ export default function Navbar() {
               <Link
                 href="/impact"
                 onClick={closeMenu}
-                className="rounded-lg px-4 py-3 font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
               >
                 Impact
               </Link>
@@ -128,7 +133,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={closeMenu}
-                className="rounded-lg px-4 py-3 font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-green-50 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
               >
                 Contact
               </Link>
@@ -136,7 +141,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={closeMenu}
-                className="mt-2 rounded-full bg-green-700 px-5 py-3 text-center font-semibold text-white transition hover:bg-green-800"
+                className="mt-2 rounded-full bg-green-700 px-5 py-3 text-center font-semibold text-white transition hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
               >
                 Get Involved
               </Link>

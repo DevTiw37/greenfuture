@@ -8,7 +8,14 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const { name, email, message } = body;
+    const { name, email, message, website } = body;
+
+    if (website) {
+      return NextResponse.json(
+        { message: "Message sent successfully." },
+        { status: 200 },
+      );
+    }
 
     if (!name || !email || !message) {
       return NextResponse.json(

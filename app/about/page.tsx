@@ -13,7 +13,7 @@ export default function AboutPage() {
     <>
       <Navbar />
 
-      <main>
+      <main id="main-content">
         <section className="bg-green-950 py-24 text-white">
           <div className="mx-auto max-w-7xl px-6">
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-green-300">
